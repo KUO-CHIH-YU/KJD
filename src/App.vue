@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 
 function verifygithub() {
   const url = 'https://cors-anywhere.herokuapp.com/corsdemo'
@@ -10,30 +9,28 @@ function verifygithub() {
 
 <template>
   <header>
-
     <nav class="navbar navbar-dark bg-dark ml-auto">
       <div class="container-fluid">
         <a class="navbar-brand">
-          <RouterLink to="/">OSINT</RouterLink> |
+          <RouterLink to="/">OSINT</RouterLink>　
           <RouterLink to="/Blockchain">Blockchain</RouterLink>
         </a>
         <button type="button" @click="verifygithub()" class="btn btn-light">verify</button>
       </div>
     </nav>
   </header>
-
-
+  <!-- <div class="container"> -->
   <RouterView />
+  <!-- </div> -->
 </template>
 
 <style scoped>
-
 header {
   line-height: 1.5;
   padding-bottom: 20px;
   /* max-height: 100vh; */
 }
-a{
+a {
   color: #ffffff;
 }
 .container-fluid {
