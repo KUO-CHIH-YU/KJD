@@ -229,7 +229,7 @@ async function query_sel(id) {
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-auto">
-        <label for="mainid" class="col-form-label">id</label>
+        <label>id</label>
       </div>
       <div class="col-md-6">
         <input

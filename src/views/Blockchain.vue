@@ -57,7 +57,10 @@ const multApp = ref([
     open: 'https://www.oklink.com/zh-hant/multi-search#key=',
     api: 'https://www.oklink.com/api/v5/explorer/address/address-active-chain?address=',
     result: ''
-  },
+  }
+])
+
+const flowApp = ref([
   {
     id: 'bitquery',
     name: 'Bitquery',
@@ -86,6 +89,9 @@ const updateInputs = () => {
     inputDic.value[x.id] = mainInput.value
   })
   multApp.value.forEach((x) => {
+    inputDic.value[x.id] = mainInput.value
+  })
+  flowApp.value.forEach((x) => {
     inputDic.value[x.id] = mainInput.value
   })
 }
@@ -188,12 +194,18 @@ const openUrl = (url) => {
     </div>
     <hr />
     <ul>
-      原生帳本
+      原生帳本　
+      <i class="fa-solid fa-clock"></i>
+      UTC+8　
+      <i class="fa-solid fa-arrow-right"></i
+      >　TRON、BTC
     </ul>
     <SearchBar :weps="originalApp" :inputDic="inputDic" widthBar="6" />
     <br />
     <ul>
-      綜合幣流
+      綜合幣流　
+      <i class="fa-solid fa-clock"></i>
+      UTC+8
     </ul>
     <SearchBar :weps="multApp" :inputDic="inputDic" widthBar="6" />
 
@@ -212,6 +224,12 @@ const openUrl = (url) => {
       </div>
       <div class="state">{{ x.note }}</div>
     </div>
+
+    <br />
+    <ul>
+      幣流流向
+    </ul>
+    <SearchBar :weps="flowApp" :inputDic="inputDic" widthBar="6" />
 
     <hr />
 

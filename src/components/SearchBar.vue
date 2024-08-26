@@ -15,15 +15,18 @@ const openWep = (id) => {
   const input = props.inputDic[id]
   let fullUrl = ''
   if (wep) {
-    if (wep.open) {
-      fullUrl = `${wep.open}`
-    } else if (wep.url) {
+    // if (wep.open) {
+    //   fullUrl = `${wep.open}`
+    // } else if (wep.url) {
+    //   fullUrl = `${wep.url}`
+    // }
+
+    if (input) {
+      fullUrl = `${wep.open}${input}`
+    } else {
       fullUrl = `${wep.url}`
     }
 
-    if (input) {
-      fullUrl += input
-    }
     window.open(fullUrl, '_blank')
   }
 }
