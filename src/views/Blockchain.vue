@@ -245,10 +245,9 @@ const openUrl = (url) => {
     <SearchBar :weps="flowApp" :inputDic="inputDic" widthBar="6" />
 
     <hr />
-
-    <div class="row">
-      <div class="col-1" style="width: 100px; text-align: right">其他</div>
-    </div>
+    <ul>
+      其他
+    </ul>
     <div class="row mb-3" v-for="x in otherApp" :key="x.id">
       <div class="col-md-1"></div>
       <div class="col-auto">
