@@ -81,6 +81,12 @@ const multApp1 = ref([
 ])
 
 const otherApp = ref([
+  {
+    id: 'CoinMarketCap',
+    name: 'CoinMarketCap',
+    url: 'https://coinmarketcap.com/zh-tw/',
+    note: '市值前 100 加密貨幣'
+  },
   { id: 'bip39', name: '還原錢包', url: 'https://iancoleman.io/bip39/', note: '註記詞還原成錢包' }
 ])
 
@@ -229,7 +235,7 @@ const openUrl = (url) => {
           {{ x.name }}
         </button>
       </div>
-      <div class="state">{{ x.note }}</div>
+      <div class="stateshort">{{ x.note }}</div>
     </div>
 
     <br />
@@ -246,14 +252,14 @@ const openUrl = (url) => {
     <div class="row mb-3" v-for="x in otherApp" :key="x.id">
       <div class="col-md-1"></div>
       <div class="col-auto">
-        <img :src="`./img/${x.id}.png`" :alt="`${x.name} Icon`" style="width: 80px" />
+        <img :src="`./img/${x.id}.png`" :alt="`${x.name} Icon`" style="height: 40px" />
       </div>
       <div class="col-auto">
         <button type="button" class="btn btn-info" @click="openUrl(x.url)">
           {{ x.name }}
         </button>
       </div>
-      <div class="state">{{ x.note }}</div>
+      <div class="stateshort">{{ x.note }}</div>
     </div>
   </div>
   <br />
@@ -269,6 +275,13 @@ const openUrl = (url) => {
 
 .state {
   width: 500px;
+  text-align: left;
+  color: rgb(13, 186, 166);
+  block-size: auto;
+}
+
+.stateshort {
+  width: 330px;
   text-align: left;
   color: rgb(13, 186, 166);
   block-size: auto;
