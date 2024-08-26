@@ -44,7 +44,7 @@ const originalApp = ref([
     name: 'BTC',
     url: 'https://btc.com/zh-HK',
     open: 'https://btc.com/zh-HK/btc/search/',
-    api: 'https://chain.api.btc.com/v3/address/',
+    api: 'https://tools-gateway.api.btc.com/rest/api/v1.0/nodeapi/address/summary/', //'https://chain.api.btc.com/v3/address/',
     result: ''
   }
 ])
@@ -108,45 +108,52 @@ async function query(id) {
   let rt = ''
   const sApp = originalApp.value.find((x) => x.id === id)
   try {
-    const response = await axios.get(
-      `https://cors-anywhere.herokuapp.com/${sApp.api}${inputDic.value[id]}`
-    )
-    // console.log(response.data.data.length)
-    if (id == 'tron') {
-      if (response.data.data.length > 0) {
+    const tmpUrl = `https://cors-anywhere.herokuapp.com/${sApp.api}${inputDic.value[id]}`
+    if (id == 'btc') {
+      const response = await axios.get(tmpUrl, {
+        headers: {
+          'X-API-TOKEN': 't77b0ca050f524521345f3e39e222c624cc8e5fa1f063cc1825434bb5b4d61770',
+          'content-type': 'application/json'
+        }
+      })
+
+      if (response.data.data.address != '') {
         rt = '✔️'
       } else {
         rt = '❌'
       }
-    } else if (id == 'eth') {
-      if (response.data.result.includes('Error')) {
-        rt = '❌'
-      } else if (response.data.result.length > 0) {
-        rt = '✔️'
-      } else {
-        rt = response.data.message
-      }
-    } else if (id == 'bsc') {
-      if (response.data.result.includes('Error')) {
-        rt = '❌'
-      } else if (response.data.result.length > 0) {
-        rt = '✔️'
-      } else {
-        rt = response.data.message
-      }
-    } else if (id == 'ploygon') {
-      if (response.data.result.includes('Error')) {
-        rt = '❌'
-      } else if (response.data.result.length > 0) {
-        rt = '✔️'
-      } else {
-        rt = response.data.message
-      }
-    } else if (id == 'btc') {
-      if (response.data.status.includes('success')) {
-        rt = '✔️'
-      } else {
-        rt = '❌'
+    } else {
+      const response = await axios.get(tmpUrl)
+      if (id == 'tron') {
+        if (response.data.data.length > 0) {
+          rt = '✔️'
+        } else {
+          rt = '❌'
+        }
+      } else if (id == 'eth') {
+        if (response.data.result.includes('Error')) {
+          rt = '❌'
+        } else if (response.data.result.length > 0) {
+          rt = '✔️'
+        } else {
+          rt = response.data.message
+        }
+      } else if (id == 'bsc') {
+        if (response.data.message.includes('NOTOK')) {
+          rt = '❌'
+        } else if (response.data.result.length > 0) {
+          rt = '✔️'
+        } else {
+          rt = response.data.message
+        }
+      } else if (id == 'ploygon') {
+        if (response.data.message.includes('NOTOK')) {
+          rt = '❌'
+        } else if (response.data.result.length > 0) {
+          rt = '✔️'
+        } else {
+          rt = response.data.message
+        }
       }
     }
   } catch (error) {
