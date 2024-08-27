@@ -76,7 +76,7 @@ const swapApp = ref([
     id: 'SWFT',
     name: 'SWFT',
     url: 'https://explorer.allchainbridge.com/#/',
-    open: 'https://explorer.allchainbridge.com/#/',
+    open: 'https://explorer.allchainbridge.com/#/search/',
     api: '',
     result: ''
   },
@@ -84,7 +84,7 @@ const swapApp = ref([
     id: 'transit',
     name: 'Transit',
     url: 'https://explorer.transit.finance/?locale=zh#/',
-    open: 'https://explorer.transit.finance/?locale=zh#/',
+    open: 'https://explorer.transit.finance/?locale=zh#/hash/',
     api: '',
     result: ''
   }
