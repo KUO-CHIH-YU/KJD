@@ -20,7 +20,7 @@ const originalApp = ref([
     name: 'ETH',
     url: 'https://etherscan.io/',
     open: 'https://etherscan.io/address/',
-    api: 'https://api.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&page=1&offset=1&sort=asc&apikey=TK82T9BHK6XDG5YJ775XP2W3BI33U6BDFB&address=',
+    api: `https://api.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&page=1&offset=1&sort=asc&apikey=${import.meta.env.VITE_ETH_APIKEY}&address=`,
     result: ''
   },
   {
@@ -66,6 +66,25 @@ const flowApp = ref([
     name: 'Bitquery',
     url: 'https://explorer.bitquery.io/',
     open: 'https://explorer.bitquery.io/search/',
+    api: '',
+    result: ''
+  }
+])
+
+const swapApp = ref([
+  {
+    id: 'SWFT',
+    name: 'SWFT',
+    url: 'https://explorer.allchainbridge.com/#/',
+    open: 'https://explorer.allchainbridge.com/#/',
+    api: '',
+    result: ''
+  },
+  {
+    id: 'transit',
+    name: 'Transit',
+    url: 'https://explorer.transit.finance/?locale=zh#/',
+    open: 'https://explorer.transit.finance/?locale=zh#/',
     api: '',
     result: ''
   }
@@ -118,12 +137,12 @@ async function query(id) {
     if (id == 'btc') {
       const response = await axios.get(tmpUrl, {
         headers: {
-          'X-API-TOKEN': 't77b0ca050f524521345f3e39e222c624cc8e5fa1f063cc1825434bb5b4d61770',
+          'X-API-TOKEN': import.meta.env.VITE_BTC_X_API_TOKEN,
           'content-type': 'application/json'
         }
       })
 
-      if (response.data.data.address != '') {
+      if ('address' in response.data.data &&response.data.data.address != '') {
         rt = '✔️'
       } else {
         rt = '❌'
@@ -137,7 +156,7 @@ async function query(id) {
           rt = '❌'
         }
       } else if (id == 'eth') {
-        if (response.data.result.includes('Error')) {
+        if (response.data.message.includes('NOTOK')) {
           rt = '❌'
         } else if (response.data.result.length > 0) {
           rt = '✔️'
@@ -169,7 +188,10 @@ async function query(id) {
         rt = 'Error'
       } else if (error.response.status === 400) {
         rt = '❌'
+      } else if (error.response.status === 429) {
+        rt = '請求次數過多'
       }
+
     }
   }
   sApp.result = rt
@@ -243,7 +265,17 @@ const openUrl = (url) => {
       幣流流向
     </ul>
     <SearchBar :weps="flowApp" :inputDic="inputDic" widthBar="6" />
-
+    <ul>
+      跨鏈瀏覽器
+    </ul>
+    <SearchBar :weps="swapApp" :inputDic="inputDic" widthBar="6" />
+    <div class="row mb-9">
+      <div class="col-2"></div>
+      <div class="col-md-8 note">
+        <p>ETH：0x92e929d8B2c8430BcAF4cD87654789578BB2b786</p>
+        <p>BSC：0x1eD5685F345b2fa564Ea4a670dE1Fde39e484751</p>
+      </div>
+    </div>
     <hr />
     <ul>
       其他
@@ -289,5 +321,8 @@ const openUrl = (url) => {
 .icon {
   width: 40px;
   height: 40px;
+}
+.note {
+  color: rgb(54, 161, 156);
 }
 </style>
