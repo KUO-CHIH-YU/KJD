@@ -71,25 +71,6 @@ const flowApp = ref([
   }
 ])
 
-const swapApp = ref([
-  {
-    id: 'SWFT',
-    name: 'SWFT',
-    url: 'https://explorer.allchainbridge.com/#/',
-    open: 'https://explorer.allchainbridge.com/#/',
-    api: '',
-    result: ''
-  },
-  {
-    id: 'transit',
-    name: 'Transit',
-    url: 'https://explorer.transit.finance/?locale=zh#/',
-    open: 'https://explorer.transit.finance/?locale=zh#/',
-    api: '',
-    result: ''
-  }
-])
-
 const multApp1 = ref([
   {
     id: 'misttrack',
