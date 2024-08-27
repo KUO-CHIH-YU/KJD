@@ -114,7 +114,7 @@ async function query(id) {
   let rt = ''
   const sApp = originalApp.value.find((x) => x.id === id)
   try {
-    const tmpUrl = `https://cors-anywhere.herokuapp.com/${sApp.api}${inputDic.value[id]}`
+    const tmpUrl = `https://thingproxy.freeboard.io/fetch/${sApp.api}${inputDic.value[id]}` //https://cors-anywhere.herokuapp.com/
     if (id == 'btc') {
       const response = await axios.get(tmpUrl, {
         headers: {
@@ -123,7 +123,7 @@ async function query(id) {
         }
       })
 
-      if ('address' in response.data.data &&response.data.data.address != '') {
+      if ('address' in response.data.data && response.data.data.address != '') {
         rt = '✔️'
       } else {
         rt = '❌'
@@ -131,7 +131,7 @@ async function query(id) {
     } else {
       const response = await axios.get(tmpUrl)
       if (id == 'tron') {
-        if (response.data.data.length > 0) {
+        if ('data' in response.data && response.data.data.length > 0) {
           rt = '✔️'
         } else {
           rt = '❌'
