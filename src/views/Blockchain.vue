@@ -97,7 +97,7 @@ const swapApp = ref([
     api: '',
     result: ''
   },{
-    id: 'swft',
+    id: 'SWFT',
     name: 'SWFT',
     url: 'https://explorer.allchainbridge.com/#/',
     open: 'https://explorer.allchainbridge.com/#/search/',
