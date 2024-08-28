@@ -22,7 +22,12 @@ const openWep = (id) => {
     // }
 
     if (input) {
-      fullUrl = `${wep.open}${input}`
+      if(input.length>60){
+        fullUrl = `${wep.open_hash}${input}`
+      }else{
+        fullUrl = `${wep.open}${input}`
+      }
+
     } else {
       fullUrl = `${wep.url}`
     }

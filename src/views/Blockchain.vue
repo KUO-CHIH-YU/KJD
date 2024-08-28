@@ -12,6 +12,7 @@ const originalApp = ref([
     name: 'TRON',
     url: 'https://tronscan.org/',
     open: 'https://tronscan.org/#/address/',
+    open_hash: 'https://tronscan.org/#/transaction/',
     api: 'https://apilist.tronscanapi.com/api/transfer/trx?&start=0&limit=1&direction=0&reverse=true&fee=true&db_version=1&start_timestamp=&end_timestamp=&address=',
     result: ''
   },
@@ -20,6 +21,7 @@ const originalApp = ref([
     name: 'ETH',
     url: 'https://etherscan.io/',
     open: 'https://etherscan.io/address/',
+    open_hash: 'https://etherscan.io/tx/',
     api: `https://api.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&page=1&offset=1&sort=asc&apikey=${import.meta.env.VITE_ETH_APIKEY}&address=`,
     result: ''
   },
@@ -28,6 +30,7 @@ const originalApp = ref([
     name: 'BSC',
     url: 'https://bscscan.com/',
     open: 'https://bscscan.com/address/',
+    open_hash: 'https://bscscan.com/tx/',
     api: 'https://api.bscscan.com/api?module=account&action=txlist&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&address=',
     result: ''
   },
@@ -36,6 +39,7 @@ const originalApp = ref([
     name: 'Polygon',
     url: 'https://polygonscan.com/',
     open: 'https://polygonscan.com/address/',
+    open_hash: 'https://polygonscan.com/tx/',
     api: 'https://api.polygonscan.com/api?module=account&action=txlist&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&address=',
     result: ''
   },
@@ -44,6 +48,7 @@ const originalApp = ref([
     name: 'BTC',
     url: 'https://btc.com/zh-HK',
     open: 'https://btc.com/zh-HK/btc/search/',
+    open_hash: 'https://btc.com/zh-HK/btc/transaction/',
     api: 'https://tools-gateway.api.btc.com/rest/api/v1.0/nodeapi/address/summary/', //'https://chain.api.btc.com/v3/address/',
     result: ''
   }
@@ -55,6 +60,7 @@ const multApp = ref([
     name: 'Oklink',
     url: 'https://www.oklink.com/hk',
     open: 'https://www.oklink.com/zh-hant/multi-search#key=',
+    open_hash: '',
     api: 'https://www.oklink.com/api/v5/explorer/address/address-active-chain?address=',
     result: ''
   }
@@ -66,6 +72,7 @@ const flowApp = ref([
     name: 'Bitquery',
     url: 'https://explorer.bitquery.io/',
     open: 'https://explorer.bitquery.io/search/',
+    open_hash: '',
     api: '',
     result: ''
   }
@@ -79,6 +86,30 @@ const multApp1 = ref([
     note: '錢包剖繪、錢包標籤、交易上下層的情況'
   }
 ])
+
+const swapApp = ref([
+  {
+    id: 'transit',
+    name: 'Transit',
+    url: 'https://explorer.transit.finance/?locale=zh#/',
+    open: 'https://explorer.transit.finance/?locale=zh#/hash/',
+    open_hash: 'https://explorer.transit.finance/?locale=zh#/hash/',
+    api: '',
+    result: ''
+  },{
+    id: 'swft',
+    name: 'SWFT',
+    url: 'https://explorer.allchainbridge.com/#/',
+    open: 'https://explorer.allchainbridge.com/#/search/',
+    open_hash: 'https://explorer.allchainbridge.com/#/search/',
+    api: '',
+    result: ''
+  }
+])
+
+
+
+
 
 const otherApp = ref([
   {
@@ -199,7 +230,7 @@ const openUrl = (url) => {
       <div class="col-md-8">
         <input
           class="form-control"
-          placeholder="address"
+          placeholder="address / hash"
           v-model="mainInput"
           @input="updateInputs"
         />
