@@ -49,7 +49,7 @@ const originalApp = ref([
     url: 'https://btc.com/zh-HK',
     open: 'https://btc.com/zh-HK/btc/search/',
     open_hash: 'https://btc.com/zh-HK/btc/transaction/',
-    api: 'https://tools-gateway.api.btc.com/rest/api/v1.0/nodeapi/address/summary/', //'https://chain.api.btc.com/v3/address/',
+    api: 'https://tools-gateway.api.btc.com/rest/api/v1.0/nodeapi/address/summary/', //'https://chain.api.btc.com/v3/address/'  ,
     result: ''
   }
 ])
