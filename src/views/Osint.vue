@@ -10,29 +10,109 @@ const inputDic = ref({})
 const checkedItems = ref({})
 
 const socialApp = ref([
-  { id: 'ptt', name: 'PTT', url: 'https://www.pttweb.cc/user/', result: '' },
+  {
+    id: 'ptt',
+    name: 'PTT',
+    url: 'https://www.pttweb.cc/user/',
+    open: 'https://www.pttweb.cc/user/',
+    result: ''
+  },
   {
     id: 'gamer',
     name: '巴哈姆特',
-    url: 'https://home.gamer.com.tw/homeindex.php?owner=',
+    url: 'https://home.gamer.com.tw/',
+    open: 'https://home.gamer.com.tw/homeindex.php?owner=',
     result: ''
   },
-  { id: 'ruten', name: '露天市集', url: 'https://www.ruten.com.tw/store/', result: '' },
-  { id: 'carousell', name: '旋轉拍賣', url: 'https://tw.carousell.com/u/', result: '' },
-  { id: 'dcard', name: 'Dcard', url: 'https://www.dcard.tw/@', result: '' },
-  { id: 'shopee', name: '蝦皮', url: 'https://shopee.tw/', result: '' },
-  { id: 'facebook', name: 'Facebook', url: 'https://www.facebook.com/search/top?q=', result: '' },
-  { id: 'instagram', name: 'Instagram', url: 'https://www.instagram.com/', result: '' },
-  { id: 'threads', name: 'Threads', url: 'https://www.threads.net/@', result: '' },
-  { id: 'xtwitter', name: 'X (Twitter)', url: 'https://x.com/', result: '' },
-  { id: 'youtube', name: 'YouTube', url: 'https://www.youtube.com/@', result: '' },
-  { id: 'tiktok', name: 'TikTok', url: 'https://www.tiktok.com/@', result: '' },
-  { id: 'douyin', name: '抖音', url: 'https://www.douyin.com/search/', result: '' },
-  { id: 'xiaohongshu', name: '小紅書', url: 'https://www.xiaohongshu.com/', result: '' },
+  {
+    id: 'ruten',
+    name: '露天市集',
+    url: 'https://www.ruten.com.tw/',
+    open: 'https://www.ruten.com.tw/store/',
+    result: ''
+  },
+  {
+    id: 'carousell',
+    name: '旋轉拍賣',
+    url: 'https://tw.carousell.com/',
+    open: 'https://tw.carousell.com/u/',
+    result: ''
+  },
+  {
+    id: 'dcard',
+    name: 'Dcard',
+    url: 'https://www.dcard.tw/',
+    open: 'https://www.dcard.tw/@',
+    result: ''
+  },
+  {
+    id: 'shopee',
+    name: '蝦皮',
+    url: 'https://shopee.tw/',
+    open: 'https://shopee.tw/',
+    result: ''
+  },
+  {
+    id: 'facebook',
+    name: 'Facebook',
+    url: 'https://www.facebook.com/',
+    open: 'https://www.facebook.com/search/top?q=',
+    result: ''
+  },
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    url: 'https://www.instagram.com/',
+    open: 'https://www.instagram.com/',
+    result: ''
+  },
+  {
+    id: 'threads',
+    name: 'Threads',
+    url: 'https://www.threads.net/',
+    open: 'https://www.threads.net/@',
+    result: ''
+  },
+  {
+    id: 'xtwitter',
+    name: 'X (Twitter)',
+    url: 'https://x.com/',
+    open: 'https://x.com/',
+    result: ''
+  },
+  {
+    id: 'youtube',
+    name: 'YouTube',
+    url: 'https://www.youtube.com/',
+    open: 'https://www.youtube.com/@',
+    result: ''
+  },
+  {
+    id: 'tiktok',
+    name: 'TikTok',
+    url: 'https://www.tiktok.com/',
+    open: 'https://www.tiktok.com/@',
+    result: ''
+  },
+  {
+    id: 'douyin',
+    name: '抖音',
+    url: 'https://www.douyin.com/',
+    open: 'https://www.douyin.com/search/',
+    result: ''
+  },
+  {
+    id: 'xiaohongshu',
+    name: '小紅書',
+    url: 'https://www.xiaohongshu.com/',
+    open: 'https://www.xiaohongshu.com/',
+    result: ''
+  },
   {
     id: 'mobile01',
     name: 'Mobile01',
-    url: 'https://www.mobile01.com/googlesearch.php?query=',
+    url: 'https://www.mobile01.com/',
+    open: 'https://www.mobile01.com/googlesearch.php?query=',
     result: ''
   }
 ])
@@ -102,11 +182,16 @@ const updateInputs = () => {
 
 const querybutton = () => {
   socialApp.value.forEach((x) => {
+    if (mainInput.value === '') {
+      return
+    }
     inputDic.value[x.id] = mainInput.value
+
     x.result = `<img src="./img/loading.gif" alt="Icon" class="img-icon" style="max-width: 30px; max-height: 30px;"/>`
 
-    const sa_sel = ['instagram', 'threads', 'xtwitter', 'carousell']
-    const sa_err = ['shopee', 'dcard', 'facebook']
+    const sa_sel = ['instagram', 'threads', 'xtwitter', 'carousell', 'dcard']
+    // const sa_sel = ['instagram']
+    const sa_err = ['shopee', 'facebook']
     const sa_number = ['douyin', 'xiaohongshu', 'mobile01']
     if (sa_sel.includes(x.id)) {
       query_sel(x.id)
@@ -130,7 +215,7 @@ async function query(id) {
   const sApp = socialApp.value.find((x) => x.id === id)
   try {
     const response = await axios.get(
-      `https://cors-anywhere.herokuapp.com/${sApp.url}${inputDic.value[id]}`
+      `https://cors-anywhere.herokuapp.com/${sApp.open}${inputDic.value[id]}`
     )
     if (id == 'ptt') {
       if (!response.data.includes('沒有此作者')) {
@@ -168,6 +253,8 @@ async function query(id) {
     if (error.response) {
       if (error.response.status === 404) {
         rt = '查無此帳號'
+      } else if (error.response.status === 403) {
+        rt = '請先點右上角verify'
       }
     }
   }
@@ -177,10 +264,14 @@ async function query(id) {
 async function query_sel(id) {
   let rt = ''
   const sApp = socialApp.value.find((x) => x.id === id)
+
+  // console.log(
+  //   `${import.meta.env.VITE_API_HOST}/OSINT_api?sapp=${sApp.id}&skey=${inputDic.value[id]}`
+  // )
   try {
     const response = await axios.get(
       // `https://cors-anywhere.herokuapp.com/${sApp.url}${inputDic.value[id]}`
-      `https://1dc7-1-175-194-184.ngrok-free.app/OSINT_api?sapp=${sApp.id}&skey=${inputDic.value[id]}`,
+      `${import.meta.env.VITE_API_HOST}/OSINT_api?sapp=${sApp.id}&skey=${inputDic.value[id]}`,
       {
         headers: {
           'ngrok-skip-browser-warning': 'true'
@@ -197,6 +288,8 @@ async function query_sel(id) {
       rt = response.data.xtwitter
     } else if (id == 'carousell') {
       rt = response.data.carousell
+    } else if (id == 'dcard') {
+      rt = response.data.dcard
     } else if (id == 'shopee') {
       rt = response.data.shopee
     } else if (id == 'facebook') {
@@ -245,7 +338,7 @@ async function query_sel(id) {
       </div>
     </div>
     <hr />
-    <SearchBar :weps="socialApp" :inputDic="inputDic" widthBar="5" />
+    <SearchBar :weps="socialApp" :inputDic="inputDic" widthBar="4" />
     <hr />
     <GoogleHacking
       :ghacking="ghacking"

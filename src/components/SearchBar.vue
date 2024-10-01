@@ -12,6 +12,7 @@ const returninputDic = (inputDic, id) => {
 
 const openWep = (id) => {
   const wep = props.weps.find((x) => x.id === id)
+
   const input = props.inputDic[id]
   let fullUrl = ''
   if (wep) {
@@ -20,14 +21,15 @@ const openWep = (id) => {
     // } else if (wep.url) {
     //   fullUrl = `${wep.url}`
     // }
-
+    // console.log(wep)
+    // console.log(input)
     if (input) {
-      if(input.length>60){
+      if (input.length > 60) {
         fullUrl = `${wep.open_hash}${input}`
-      }else{
+      } else {
+        console.log(fullUrl)
         fullUrl = `${wep.open}${input}`
       }
-
     } else {
       fullUrl = `${wep.url}`
     }
@@ -59,7 +61,19 @@ const openWep = (id) => {
       <button type="button" class="btn btn-success" @click="openWep(x.id)">開啟</button>
     </div>
     <div class="col-auto">
-      <div class="state" v-html="x.result"></div>
+      <div
+        :class="{
+          'error-state':
+            x.result === 'Network Error' || x.result === '404' || x.result === '查無此帳號',
+          'verify-state': x.result === '請先點右上角verify',
+          state:
+            x.result !== 'Network Error' &&
+            x.result !== '404' &&
+            x.result !== '請先點右上角verify' &&
+            x.result !== '查無此帳號'
+        }"
+        v-html="x.result"
+      ></div>
     </div>
   </div>
 </template>
@@ -73,8 +87,21 @@ const openWep = (id) => {
 .state {
   /* width: 500px; */
   text-align: left;
-  color: rgb(13, 186, 166);
   block-size: auto;
+  color: rgb(13, 186, 166);
+}
+.verify-state {
+  /* width: 500px; */
+  text-align: left;
+  block-size: auto;
+  color: rgb(247, 12, 0);
+  background-color: rgb(223, 223, 223);
+  font-weight: bold;
+}
+.error-state {
+  text-align: left;
+  block-size: auto;
+  color: gray;
 }
 
 .icon {
