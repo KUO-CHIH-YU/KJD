@@ -96,7 +96,8 @@ const swapApp = ref([
     open_hash: 'https://explorer.transit.finance/?locale=zh#/hash/',
     api: '',
     result: ''
-  },{
+  },
+  {
     id: 'SWFT',
     name: 'SWFT',
     url: 'https://explorer.allchainbridge.com/#/',
@@ -106,10 +107,6 @@ const swapApp = ref([
     result: ''
   }
 ])
-
-
-
-
 
 const otherApp = ref([
   {
@@ -203,7 +200,6 @@ async function query(id) {
       } else if (error.response.status === 429) {
         rt = '請求次數過多'
       }
-
     }
   }
   sApp.result = rt
