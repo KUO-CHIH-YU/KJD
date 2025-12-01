@@ -12,11 +12,11 @@ const openUrl = (url) => {
 
 <template>
   <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-auto mb-3 label">
+    <div class="col-auto"></div>
+    <div class="col-auto mb-1 label">
       <label>{{ name }}</label>
     </div>
-    <div class="col-auto mb-3" v-for="g in webs" :key="g.id">
+    <div class="col-auto mb-1" v-for="g in webs" :key="g.id">
       <button type="button" class="btn btn-secondary" @click="openUrl(g.url)">
         {{ g.id }}
       </button>

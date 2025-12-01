@@ -118,17 +118,17 @@ const socialApp = ref([
 ])
 
 const ghacking = ref([
-  { id: 'intext', placeholder: 'intext:關鍵字', note: '搜尋網頁中的內容' },
-  { id: 'intitle', placeholder: 'intitle:關鍵字', note: '搜尋網頁中的標題' },
+  { id: 'intext', placeholder: 'intext:關鍵字', note: '搜尋網頁中的「內容」' },
+  { id: 'intitle', placeholder: 'intitle:關鍵字', note: '搜尋網頁中的「標題」' },
   {
     id: 'filetype',
     placeholder: 'filetype:pdf ( doc, docx, ppt, xls...)',
-    note: '搜尋指定類型的文件'
+    note: '搜尋指定類型的檔案'
   },
   { id: 'info', placeholder: 'info:網址', note: '搜尋指定網站的基本資訊' },
   { id: 'cache', placeholder: 'cache:網址', note: '搜尋google中的緩存' },
   { id: 'related', placeholder: 'related:網址', note: '搜尋類似於指定網站的其他網站' },
-  { id: 'inurl', placeholder: 'inurl:網址', note: '搜尋包含該字串的url' },
+  { id: 'inurl', placeholder: 'inurl:網址', note: '搜尋包含該字串的「url」' },
   { id: 'site', placeholder: 'site:網址', note: '搜尋指定網站' }
 ])
 
@@ -160,15 +160,28 @@ const OSINTemail = ref([
   {
     id: 'Quick Email Verification',
     url: 'https://quickemailverification.com/tools/email-checker'
+  },
+  {
+    id: 'HOLEHE',
+    url: 'https://github.com/megadose/holehe'
   }
 ])
 
 const OSINTuser = ref([
   { id: 'Name Checkup', url: 'https://namecheckup.com/' },
-  { id: 'Namech_k', url: 'https://namechk.com/' }
+  { id: 'Namech_k', url: 'https://namechk.com/' },
+  { id: 'WayBack Machine', url: 'https://web.archive.org/' },
 ])
 
-const OSINTother = ref([{ id: 'IntelTechniques', url: 'https://inteltechniques.com/tools/' }])
+const OSINTother = ref([
+  { id: 'OSINT framework', url: 'https://osintframework.com/' },
+  { id: 'IntelTechniques', url: 'https://inteltechniques.com/tools/' },
+  { id: 'Google cache', url: 'https://cachedview.com/' },  
+])
+
+const OSINTgov = ref([
+  { id: '政府資料開放平臺', url: 'https://data.gov.tw/' }
+])
 
 const updateInputs = () => {
   socialApp.value.forEach((x) => {
@@ -351,11 +364,87 @@ async function query_sel(id) {
     <br />
     <h4>其他OSINT網站</h4>
     <br />
-    <WebButton :webs="OSINTemail" name="Email" />
-    <WebButton :webs="OSINTuser" name="UserName" />
-    <WebButton :webs="OSINTother" name="Tool" />
+    <div class="mb-1 p-2 rounded hover-highlight text-dark">
+      <WebButton :webs="OSINTemail" name="Email" />
+    </div>
+
+    <div class="mb-1 p-2 rounded hover-highlight alt text-dark">
+      <WebButton :webs="OSINTuser" name="UserName" />
+    </div>
+
+    <div class="mb-1 p-2 rounded hover-highlight text-dark">
+      <WebButton :webs="OSINTother" name="Tool" />
+    </div>
+
+    <div class="mb-1 p-2 rounded hover-highlight alt text-dark">
+      <WebButton :webs="OSINTgov" name="GOV" />
+    </div>
+
+  <br />
+  <h4>facebook</h4>
+  <div class="p-2 rounded hover-highlight">
+    <div>個人帳號</div>
+    <ul>
+      <li>帳號ID：搜尋userID</li>
+      <li>Username：搜尋 userVanity (不一定有)</li>
+      <li>Username：搜尋 userVanity</li>
+      <li>Username：搜尋 userVanity</li>
+    </ul>
+  </div>
+  <div class="p-2 rounded hover-highlight">
+    <div>社團 - Group ID</div>
+    <ul>
+      <li>Group ID：搜尋 group_id</li>
+    </ul>
+  </div>
+  <div class="p-2 rounded hover-highlight">
+    <div>粉絲專頁 - Page ID</div>
+    <ul>
+      <li>Group ID：搜尋 owning_profile_id</li>
+    </ul>
+  </div>
+  <div class="p-2 rounded hover-highlight">
+    <div>Reel影片上傳時間</div>
+    <ul>
+      <li>網址中包含 reel/[post_ID]的部分，替換為watch/?v= [post_ID]</li>
+    </ul>
+  </div>
+  <br />
+
+
   </div>
   <br />
   <br />
   <br />
+  <hr />
+
 </template>
+
+
+
+<style scoped>
+  /* 定義所有區塊的共同樣式 */
+  .hover-highlight {
+      /* 預設無背景色，使用透明 */
+      background-color: transparent !important;
+      /* 讓背景色切換更平滑 */
+      transition: background-color 0.3s ease;
+      /* 增加一個淺色邊框來區分區塊 */
+      border: 1px solid var(--bs-light);
+  }
+
+  /* 滑鼠移入時的樣式 */
+  .hover-highlight:hover {
+      /* 使用您想要的淡色系背景色 */
+      background-color: var(--bs-light) !important; 
+      /* 改變邊框顏色以搭配背景 */
+      border-color: var(--bs-secondary-subtle); 
+      /* 增加陰影效果 (可選) */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  /* 第二種顏色交替 hover 效果 (可選，讓視覺有區分) */
+  .hover-highlight.alt:hover {
+      background-color: var(--bs-info-subtle) !important;
+  }
+</style>
